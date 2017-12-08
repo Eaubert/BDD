@@ -10,15 +10,42 @@ var schemaOptions = {
 };
 
 var VeloStationSchema = new mongoose.Schema({
-  name :String,
-  number :Number,
-  address:String,
-  lat: Number,
+  number: Number,
+  name: String,
+  address: String,
+  lat:Number,
   lng: Number,
-  open:Number
+  banking: Boolean,
+  bonus: Boolean,
+  status: String,
+  contract_name: String,
+  bike_stands: Number,
+  available_bike_stands: Number,
+  available_bikes: Number,
+  last_update: Number
 }, schemaOptions);
 
-
 var VeloStation = mongoose.model('velo', VeloStationSchema);
-new VeloStation({name:'00027 - NANCY THERMAL (CB)',number :27,address:'Rue du Sergent Blandan',lat:48.67899967679407,lng:6.167632567397485,open:1}).save();
+
+//Initialise ou met a jour la base
+VeloStation.update = function(item){
+  var position = item["position"];
+  VeloStation.findOneAndUpdate({number : item["number"]}, {
+        $set: {
+          name : item["name"],
+          adress : item["adress"],
+          lat : position["lat"],
+          long : position["lng"],
+          banking : item["banking"],
+          bonus : item["bonus"],
+          status: item["status"],
+          contract_name : item["contract_name"],
+          bike_stands: item["bike_stands"],
+          available_bike_stands: item["available_bike_stands"],
+          available_bikes: item["available_bikes"],
+          last_update: item["last_update"]
+        }
+    }, {upsert: true}, function(err){});
+};
+
 module.exports = VeloStation;

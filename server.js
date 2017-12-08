@@ -18,6 +18,9 @@ dotenv.load();
 var HomeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var veloController = require('./controllers/velo');
+var parkingController = require('./controllers/parking');
+var travauxController = require('./controllers/travaux');
 
 // Passport OAuth strategies
 require('./config/passport');
@@ -65,6 +68,16 @@ app.get('/reset/:token', userController.resetGet);
 app.post('/reset/:token', userController.resetPost);
 app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
+
+//Initialiser/mettre a jour la base de donnée
+veloController.update();
+parkingController.update();
+travauxController.update();
+
+//recuperer base de donnée
+app.get('/velo', veloController.getAll);
+app.get('/travaux', travauxController.getAll);
+app.get('/parking', parkingController.getAll);
 
 // Production error handler
 if (app.get('env') === 'production') {
