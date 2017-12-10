@@ -281,3 +281,18 @@ textarea {
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+
+.m{
+  height: 300px;
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+}
+
+.i{
+  height: 100%;
+  width:100%;
+  border-radius: 30px;
+  border : black solid 4px
+}

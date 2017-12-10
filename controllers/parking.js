@@ -2,7 +2,7 @@ var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
-var travaux = require('../models/travaux');
+var parking = require('../models/parking');
 var https = require('https');
 
 //Initialise ou met a jour la base a parti du json reucperer deuis l'url
@@ -20,7 +20,7 @@ exports.update = function(req, res, next) {
       res.on('end', function(){
           var Response = JSON.parse(body);
           Response["features"].forEach(function(item){
-            travaux.update(item);
+            parking.update(item);
           });
       });
   }).on('error', function(e){
@@ -30,7 +30,7 @@ exports.update = function(req, res, next) {
 
 //affiche la base dans la console
 exports.getAll = function(req, res, next){
-  var query = travaux.find();
+  var query = parking.find();
 
   query.exec(function(err,comms){
     comms.forEach(function(index){

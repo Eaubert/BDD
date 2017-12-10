@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h2 #{tabvelo.name}
+  div
+    ul
+      li='Adresse: '+tabvelo.address
+      if tabvelo.status == 'OPEN'
+        li='Station ouverte'
+      else
+        li='Station fermé'
+      if tabvelo.banking == true
+        li='Paiement par CB : disponible'
+      else
+        li='Paiement par CB : non disponible'
+      li='Vélo disponible: '+tabvelo.available_bikes
+      li='Emplacement libre: '+tabvelo.available_bike_stands
+  h2 Parking et Travaux aux alentours

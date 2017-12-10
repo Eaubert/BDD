@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 Parking de Nancy
+  - each result in tab
+    div
+      ul
+        li='Parking '+result.nom
+        li='Adresse: '+result.adresse
+        if result.places == null
+          li='Parking fermé'
+        else
+          li='Parking ouvert'
+          li='Place disponible: '+result.places
+          form.ajout(method='POST', action='/detailp')
+            input(type='hidden', name='id', value=result.id)
+            input.adj.inp(type='submit' value='DETAIL')

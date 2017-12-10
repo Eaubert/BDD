@@ -33,9 +33,9 @@ VeloStation.update = function(item){
   VeloStation.findOneAndUpdate({number : item["number"]}, {
         $set: {
           name : item["name"],
-          adress : item["adress"],
+          address : item["address"],
           lat : position["lat"],
-          long : position["lng"],
+          lng : position["lng"],
           banking : item["banking"],
           bonus : item["bonus"],
           status: item["status"],
