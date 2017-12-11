@@ -83,7 +83,7 @@ app.get('/parking', parkingController.getAll);
 app.get('/pvelo',HomeController.velo);
 app.get('/pvoiture',HomeController.voiture);
 app.post('/details',HomeController.details);
-app.post('/detailp',HomeController.details);
+app.post('/detailp',HomeController.detailp);
 
 // Production error handler
 if (app.get('env') === 'production') {

@@ -38,26 +38,114 @@ exports.voiture = function(req, res){
 
 exports.details = function(req, res) {
 	velo.findOne({number:req.param('id')},function(err,result){
-		var query = parking.find();
-	  query.exec(function(er,comms){
-			res.render('details', {
-				title: 'Station',
-				tabvelo :result
+		var c= 11754255.426096; //constante de la projection
+		var e= 0.0818191910428158; //première exentricité de l'ellipsoïde
+		var n= 0.725607765053267; //exposant de la projection
+		var xs= 700000; //coordonnées en projection du pole
+		var ys= 12655612.049876; //coordonnées en projection du pole
+		var l=result.lat;
+		var ln=result.lng;
+		var l1={l,ln};
+		var tp=[];
+		var tt=[];
+		//travaux
+		var query = travaux.find();
+		query.exec(function(er,comms){
+			//parking
+			var q =parking.find();
+			q.exec(function(errr,com){
+				//for travaux
+				for(var i=0;i<comms.length;i++){
+					var x =comms[i].x;
+					var y=comms[i].y;
+					var a=(Math.log(c/(Math.sqrt(Math.pow((x+xs),2)+Math.pow((y-ys),2))))/n);
+					var r =e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*Math.sin(1)))))))))))))))))))
+					var lng=((Math.atan(-(x-xs)/(y-ys)))/n+3/180*Math.PI)/Math.PI*180;
+					var lat=Math.asin(Math.tanh((Math.log(c/Math.sqrt(Math.pow((x-xs),2)+Math.pow((y-ys),2)))/n)+e*Math.atanh(r)))/Math.PI*180+0.006;
+					var l2={lat,lng}
+					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
+						tt.push(comms[i]);
+					}
+				}
+				//for parking
+				for(var j=0;j<com.length;j++){
+					var x =com[j].x;
+					var y=com[j].y;
+					var a=(Math.log(c/(Math.sqrt(Math.pow((x+xs),2)+Math.pow((y-ys),2))))/n);
+					var r =e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*Math.sin(1)))))))))))))))))))
+					var lng=((Math.atan(-(x-xs)/(y-ys)))/n+3/180*Math.PI)/Math.PI*180;
+					var lat=Math.asin(Math.tanh((Math.log(c/Math.sqrt(Math.pow((x-xs),2)+Math.pow((y-ys),2)))/n)+e*Math.atanh(r)))/Math.PI*180+0.006;
+					var l2={lat,lng}
+					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
+						tp.push(com[j]);
+					}
+				}
+				res.render('details', {
+					title: 'Station',
+					tabvelo :result,
+					tabparking:tp,
+					tabtravaux:tt
+				});
 			});
-			console.log(comms[1].x)
 		});
 	});
 };
 
 exports.detailp = function(req, res) {
-	res.render('details', {
-		title: 'Parking'
+	parking.findOne({id:req.param('id')},function(err,result){
+		var c= 11754255.426096; //constante de la projection
+		var e= 0.0818191910428158; //première exentricité de l'ellipsoïde
+		var n= 0.725607765053267; //exposant de la projection
+		var xs= 700000; //coordonnées en projection du pole
+		var ys= 12655612.049876; //coordonnées en projection du pole
+		//	var l=result.lat;
+		//	var ln=result.lng
+		var x =result.x;
+		var y=result.y;
+		var a=(Math.log(c/(Math.sqrt(Math.pow((x+xs),2)+Math.pow((y-ys),2))))/n);
+		var r =e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*Math.sin(1)))))))))))))))))))
+		var ln=((Math.atan(-(x-xs)/(y-ys)))/n+3/180*Math.PI)/Math.PI*180;
+		var l=Math.asin(Math.tanh((Math.log(c/Math.sqrt(Math.pow((x-xs),2)+Math.pow((y-ys),2)))/n)+e*Math.atanh(r)))/Math.PI*180+0.006;
+		var l1={l,ln};
+		var ts=[];
+		var tt=[];
+		//travaux
+		var query = travaux.find();
+		query.exec(function(er,comms){
+			//station
+			var q =velo.find();
+			q.exec(function(errr,com){
+				//for travaux
+				for(var i=0;i<comms.length;i++){
+					var x =comms[i].x;
+					var y=comms[i].y;
+					var a=(Math.log(c/(Math.sqrt(Math.pow((x+xs),2)+Math.pow((y-ys),2))))/n);
+					var r =e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*(Math.tanh(a+e*Math.atanh(e*Math.sin(1)))))))))))))))))))
+					var lng=((Math.atan(-(x-xs)/(y-ys)))/n+3/180*Math.PI)/Math.PI*180;
+					var lat=Math.asin(Math.tanh((Math.log(c/Math.sqrt(Math.pow((x-xs),2)+Math.pow((y-ys),2)))/n)+e*Math.atanh(r)))/Math.PI*180+0.006;
+					var l2={lat,lng}
+					//console.log(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2));
+					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
+						tt.push(comms[i]);
+					}
+				}
+				//for station
+				for(var j=0;j<com.length;j++){
+					var lat=com[j].lat;
+					var lng=com[j].lng;
+					var l2={lat,lng}
+					//console.log(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2));
+					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
+						ts.push(com[j]);
+					}
+				}
+				res.render('detailp', {
+					title: 'Parking',
+					tabparking :result,
+					tabstation:ts,
+					tabtravaux:tt
+				});
+			});
+		});
 	});
-	var l1={lat :48,lon: 6}
-	var l2={lat:48.027,lon:6}
-	if(geodist(l1,l2,{exact: true, unit: 'km'})<3){
-		console.log(geodist(l1,l2,{exact: true, unit: 'km'}))
-	}else{
-		console.log('oui')
-	}
 };

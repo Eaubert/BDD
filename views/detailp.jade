@@ -1,3 +1,38 @@
 extends layout
 
 block content
+  h2 #{tabparking.nom}
+  div
+    ul
+      li='Adresse: '+tabparking.adresse
+      if tabparking.places == null
+        li='Parking fermé'
+      else
+        li='Parking ouvert'
+        li='Place disponible: '+tabparking.places
+  h2 Station de vélo et Travaux aux alentours
+  - each res in tabstation
+    div
+      ul
+        li='Station: '+res.name
+        li='Adresse: '+res.address
+        if res.status == 'OPEN'
+          li='Station ouverte'
+        else
+          li='Station fermé'
+        if res.banking == true
+          li='Paiement par CB : disponible'
+        else
+          li='Paiement par CB : non disponible'
+        li='Vélo disponible: '+res.available_bikes
+        li='Emplacement libre: '+res.available_bike_stands
+  - each r in tabtravaux
+    div
+      ul
+        li='Travaux aux '+r.adresse
+        if r.descr_gene1!=null
+          li='description: '+r.descr_gene1
+        if r.descr_gene2!=null
+          li=r.descr_gene2
+        if r.descr_gene3!=null
+          li=r.descr_gene3
