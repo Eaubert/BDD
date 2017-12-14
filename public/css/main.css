@@ -17,6 +17,11 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
+  font-size: 450%;
+  text-align: center;
+  text-decoration: underline;
+  padding-bottom: 2%;
+  color: MediumBlue ;
 }
 
 a {
@@ -295,4 +300,25 @@ textarea {
   width:100%;
   border-radius: 30px;
   border : black solid 4px
+}
+
+li.aff{
+  color: #4d4d4d;
+  font-size: 150%;
+}
+
+form{
+  color:red;
+  font-size: 100%;
+  padding-bottom: 1%;
+
+}
+
+ul.aff{
+  box-shadow: 10px 10px 10px Darkgrey;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 25px;
+  background-color: white;
+  border-radius: 10px;
 }

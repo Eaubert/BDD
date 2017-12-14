@@ -3,36 +3,36 @@ extends layout
 block content
   h2 #{tabvelo.name}
   div
-    ul
-      li='Adresse: '+tabvelo.address
+    ul.aff
+      li.aff='Adresse: '+tabvelo.address
       if tabvelo.status == 'OPEN'
-        li='Station ouverte'
+        li.aff='Station ouverte'
       else
-        li='Station fermé'
+        li.aff='Station fermé'
       if tabvelo.banking == true
-        li='Paiement par CB : disponible'
+        li.aff='Paiement par CB : disponible'
       else
-        li='Paiement par CB : non disponible'
-      li='Vélo disponible: '+tabvelo.available_bikes
-      li='Emplacement libre: '+tabvelo.available_bike_stands
+        li.aff='Paiement par CB : non disponible'
+      li.aff='Vélo disponible: '+tabvelo.available_bikes
+      li.aff='Emplacement libre: '+tabvelo.available_bike_stands
   h2 Parking et Travaux aux alentours
   - each res in tabparking
     div
-      ul
-        li='Parking '+res.nom
-        li='Adresse: '+res.adresse
+      ul.aff
+        li.aff='Parking '+res.nom
+        li.aff='Adresse: '+res.adresse
         if res.places == null
-          li='Parking fermé'
+          li.aff='Parking fermé'
         else
-          li='Parking ouvert'
-          li='Place disponible: '+res.places
+          li.aff='Parking ouvert'
+          li.aff='Place disponible: '+res.places
   - each r in tabtravaux
     div
-      ul
-        li='Travaux aux '+r.adresse
+      ul.aff
+        li.aff='Travaux aux '+r.adresse
         if r.descr_gene1!=null
-          li='description: '+r.descr_gene1
+          li.aff='description: '+r.descr_gene1
         if r.descr_gene2!=null
-          li=r.descr_gene2
+          li.aff=r.descr_gene2
         if r.descr_gene3!=null
-          li=r.descr_gene3
+          li.aff=r.descr_gene3

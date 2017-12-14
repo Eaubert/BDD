@@ -4,19 +4,19 @@ block content
   h1 Station vélo de Nancy
   - each result in tab
     div
-      ul
-        li='Station: '+result.name
-        li='Adresse: '+result.address
+      ul.aff
+        li.aff='Station: '+result.name
+        li.aff='Adresse: '+result.address
         if result.status == 'OPEN'
-          li='Station ouverte'
+          li.aff='Station ouverte'
         else
-          li='Station fermé'
+          li.aff='Station fermé'
         if result.banking == true
-          li='Paiement par CB : disponible'
+          li.aff='Paiement par CB : disponible'
         else
-          li='Paiement par CB : non disponible'
-        li='Vélo disponible: '+result.available_bikes
-        li='Emplacement libre: '+result.available_bike_stands
+          li.aff='Paiement par CB : non disponible'
+        li.aff='Vélo disponible: '+result.available_bikes
+        li.aff='Emplacement libre: '+result.available_bike_stands
         form.ajout(method='POST', action='/details')
           input(type='hidden', name='id', value=result.number)
           input.adj.inp(type='submit' value='DETAIL')
