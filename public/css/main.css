@@ -19,9 +19,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   font-size: 450%;
   text-align: center;
-  text-decoration: underline;
   padding-bottom: 2%;
-  color: MediumBlue ;
+  color: #000066 ;
 }
 
 a {
