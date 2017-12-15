@@ -11,28 +11,32 @@ block content
         li.aff='Parking ouvert'
         li.aff='Place disponible: '+tabparking.places
   h2 Station de vélo et Travaux aux alentours
-  - each res in tabstation
-    div
-      ul.aff
-        li.aff='Station: '+res.name
-        li.aff='Adresse: '+res.address
-        if res.status == 'OPEN'
-          li.aff='Station ouverte'
-        else
-          li.aff='Station fermé'
-        if res.banking == true
-          li.aff='Paiement par CB : disponible'
-        else
-          li.aff='Paiement par CB : non disponible'
-        li.aff='Vélo disponible: '+res.available_bikes
-        li.aff='Emplacement libre: '+res.available_bike_stands
-  - each r in tabtravaux
-    div
-      ul.aff
-        li.aff='Travaux aux '+r.adresse
-        if r.descr_gene1!=null
-          li.aff='description: '+r.descr_gene1
-        if r.descr_gene2!=null
-          li.aff=r.descr_gene2
-        if r.descr_gene3!=null
-          li.aff=r.descr_gene3
+
+  div.center
+    div.left
+        - each res in tabstation
+          div
+            ul.aff
+              li.aff='Station: '+res.name
+              li.aff='Adresse: '+res.address
+              if res.status == 'OPEN'
+                li.aff='Station ouverte'
+              else
+                li.aff='Station fermé'
+              if res.banking == true
+                li.aff='Paiement par CB : disponible'
+              else
+                li.aff='Paiement par CB : non disponible'
+              li.aff='Vélo disponible: '+res.available_bikes
+              li.aff='Emplacement libre: '+res.available_bike_stands
+      div.right
+        - each r in tabtravaux
+          div
+            ul.aff
+              li.aff='Travaux aux '+r.adresse
+              if r.descr_gene1!=null
+                li.aff='description: '+r.descr_gene1
+              if r.descr_gene2!=null
+                li.aff=r.descr_gene2
+              if r.descr_gene3!=null
+                li.aff=r.descr_gene3

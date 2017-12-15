@@ -321,3 +321,15 @@ ul.aff{
   background-color: white;
   border-radius: 10px;
 }
+
+.left{
+  width : 350em;
+}
+
+.right{
+  width : 350em;
+}
+
+.center{
+  display : flex;
+}

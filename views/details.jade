@@ -16,23 +16,27 @@ block content
       li.aff='Vélo disponible: '+tabvelo.available_bikes
       li.aff='Emplacement libre: '+tabvelo.available_bike_stands
   h2 Parking et Travaux aux alentours
-  - each res in tabparking
-    div
-      ul.aff
-        li.aff='Parking '+res.nom
-        li.aff='Adresse: '+res.adresse
-        if res.places == null
-          li.aff='Parking fermé'
-        else
-          li.aff='Parking ouvert'
-          li.aff='Place disponible: '+res.places
-  - each r in tabtravaux
-    div
-      ul.aff
-        li.aff='Travaux aux '+r.adresse
-        if r.descr_gene1!=null
-          li.aff='description: '+r.descr_gene1
-        if r.descr_gene2!=null
-          li.aff=r.descr_gene2
-        if r.descr_gene3!=null
-          li.aff=r.descr_gene3
+
+  div.center
+    div.left
+      - each res in tabparking
+        div
+          ul.aff
+            li.aff='Parking '+res.nom
+            li.aff='Adresse: '+res.adresse
+            if res.places == null
+              li.aff='Parking fermé'
+            else
+              li.aff='Parking ouvert'
+              li.aff='Place disponible: '+res.places
+    div.right
+      - each r in tabtravaux
+        div
+          ul.aff
+            li.aff='Travaux aux '+r.adresse
+            if r.descr_gene1!=null
+              li.aff='description: '+r.descr_gene1
+            if r.descr_gene2!=null
+              li.aff=r.descr_gene2
+            if r.descr_gene3!=null
+              li.aff=r.descr_gene3
