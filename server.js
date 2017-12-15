@@ -70,9 +70,9 @@ app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 
 //Initialiser/mettre a jour la base de donnée
-//veloController.update();
-//parkingController.update();
-//travauxController.update();
+veloController.update();
+parkingController.update();
+travauxController.update();
 
 //recuperer base de donnée
 app.get('/velo', veloController.getAll);
