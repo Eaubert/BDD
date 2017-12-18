@@ -37,6 +37,7 @@ exports.voiture = function(req, res){
 }
 
 exports.details = function(req, res) {
+	//key : AIzaSyD4k459oJsSbP-VjwhnpABf9OqhorZnGlc
 	velo.findOne({number:req.param('id')},function(err,result){
 		var c= 11754255.426096; //constante de la projection
 		var e= 0.0818191910428158; //première exentricité de l'ellipsoïde
@@ -48,6 +49,8 @@ exports.details = function(req, res) {
 		var l1={l,ln};
 		var tp=[];
 		var tt=[];
+		var markersp="";
+		var markerst="";
 		//travaux
 		var query = travaux.find();
 		query.exec(function(er,comms){
@@ -65,6 +68,7 @@ exports.details = function(req, res) {
 					var l2={lat,lng}
 					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
 						tt.push(comms[i]);
+						markerst+="&markers=color:yellow%7Clabel:T%7C"+lat+","+lng;
 					}
 				}
 				//for parking
@@ -76,15 +80,20 @@ exports.details = function(req, res) {
 					var lng=((Math.atan(-(x-xs)/(y-ys)))/n+3/180*Math.PI)/Math.PI*180;
 					var lat=Math.asin(Math.tanh((Math.log(c/Math.sqrt(Math.pow((x-xs),2)+Math.pow((y-ys),2)))/n)+e*Math.atanh(r)))/Math.PI*180+0.006;
 					var l2={lat,lng}
-					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
-						tp.push(com[j]);
+					if(com[j].places!=null){
+						if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
+							tp.push(com[j]);
+							markersp+="&markers=color:blue%7Clabel:P%7C"+lat+","+lng;
+						}
 					}
 				}
+				var carte="https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C"+l+","+ln+markersp+markerst+"&key=AIzaSyD4k459oJsSbP-VjwhnpABf9OqhorZnGlc";
 				res.render('details', {
 					title: 'Station',
 					tabvelo :result,
 					tabparking:tp,
-					tabtravaux:tt
+					tabtravaux:tt,
+					c:carte
 				});
 			});
 		});
@@ -109,6 +118,8 @@ exports.detailp = function(req, res) {
 		var l1={l,ln};
 		var ts=[];
 		var tt=[];
+		var markerst="";
+		var markerss="";
 		//travaux
 		var query = travaux.find();
 		query.exec(function(er,comms){
@@ -127,6 +138,7 @@ exports.detailp = function(req, res) {
 					//console.log(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2));
 					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
 						tt.push(comms[i]);
+						markerst+="&markers=color:yellow%7Clabel:T%7C"+lat+","+lng;
 					}
 				}
 				//for station
@@ -137,13 +149,16 @@ exports.detailp = function(req, res) {
 					//console.log(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2));
 					if(geodist(l1,l2,{exact: true, unit: 'km'}).toFixed(2)<1){
 						ts.push(com[j]);
+						markerss+="&markers=color:red%7Clabel:S%7C"+lat+","+lng;
 					}
 				}
+				var carte="https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:P%7C"+l+","+ln+markerss+markerst+"&key=AIzaSyD4k459oJsSbP-VjwhnpABf9OqhorZnGlc";
 				res.render('detailp', {
 					title: 'Parking',
 					tabparking :result,
 					tabstation:ts,
-					tabtravaux:tt
+					tabtravaux:tt,
+					c:carte
 				});
 			});
 		});

@@ -3,20 +3,22 @@ extends layout
 block content
   h2 #{tabparking.nom}
   div
-    ul.aff
+    ul.affb
       li.aff='Adresse: '+tabparking.adresse
       if tabparking.places == null
         li.aff='Parking fermé'
       else
         li.aff='Parking ouvert'
         li.aff='Place disponible: '+tabparking.places
+  div.img
+    img(src=c)
   h2 Station de vélo et Travaux aux alentours
 
   div.center
     div.left
         - each res in tabstation
           div
-            ul.aff
+            ul.affr
               li.aff='Station: '+res.name
               li.aff='Adresse: '+res.address
               if res.status == 'OPEN'
@@ -32,7 +34,7 @@ block content
       div.right
         - each r in tabtravaux
           div
-            ul.aff
+            ul.affj
               li.aff='Travaux aux '+r.adresse
               if r.descr_gene1!=null
                 li.aff='description: '+r.descr_gene1

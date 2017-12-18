@@ -321,6 +321,30 @@ ul.aff{
   background-color: white;
   border-radius: 10px;
 }
+ul.affb{
+  box-shadow: 10px 10px 10px Darkgrey;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 25px;
+  background-color: #B0E0E6;
+  border-radius: 10px;
+}
+ul.affr{
+  box-shadow: 10px 10px 10px Darkgrey;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 25px;
+  background-color: #CD5C5C;
+  border-radius: 10px;
+}
+ul.affj{
+  box-shadow: 10px 10px 10px Darkgrey;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 25px;
+  background-color: #FFFACD;
+  border-radius: 10px;
+}
 
 .left{
   width : 350em;
@@ -332,4 +356,9 @@ ul.aff{
 
 .center{
   display : flex;
+}
+
+.img{
+  margin:auto;
+  text-align: center;
 }

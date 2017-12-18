@@ -3,7 +3,7 @@ extends layout
 block content
   h2 #{tabvelo.name}
   div
-    ul.aff
+    ul.affr
       li.aff='Adresse: '+tabvelo.address
       if tabvelo.status == 'OPEN'
         li.aff='Station ouverte'
@@ -15,13 +15,14 @@ block content
         li.aff='Paiement par CB : non disponible'
       li.aff='Vélo disponible: '+tabvelo.available_bikes
       li.aff='Emplacement libre: '+tabvelo.available_bike_stands
+  div.img
+    img(src=c)
   h2 Parking et Travaux aux alentours
-
   div.center
     div.left
       - each res in tabparking
         div
-          ul.aff
+          ul.affb
             li.aff='Parking '+res.nom
             li.aff='Adresse: '+res.adresse
             if res.places == null
@@ -32,7 +33,7 @@ block content
     div.right
       - each r in tabtravaux
         div
-          ul.aff
+          ul.affj
             li.aff='Travaux aux '+r.adresse
             if r.descr_gene1!=null
               li.aff='description: '+r.descr_gene1
